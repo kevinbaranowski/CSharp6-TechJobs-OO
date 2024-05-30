@@ -1,4 +1,6 @@
 ﻿
+using System.Text;
+
 namespace TechJobs.Tests
 {
 	[TestClass]
@@ -26,7 +28,6 @@ namespace TechJobs.Tests
         [TestMethod]
         public void TestSettingJobId()
         {
-            //Assert.IsFalse(job1.Equals(job2));
             Assert.IsFalse(job1.Id == job2.Id);
             Assert.IsTrue(job2.Id - job1.Id == 1);
         }
@@ -43,6 +44,32 @@ namespace TechJobs.Tests
         public void TestJobsForEquality()
         {
             Assert.IsFalse(job1.Equals(job2));
+        }
+        [TestMethod]
+        public void TestToStringStartsAndEndsWithNewLine()
+        {
+            string jobToString = job1.ToString();
+            StringAssert.StartsWith(jobToString, Environment.NewLine);
+            StringAssert.EndsWith(jobToString, Environment.NewLine);
+        }
+        [TestMethod]
+        public void TestToStringContainsCorrectLabelsAndData()
+        {
+            string job3ToString = job3.ToString();
+            StringAssert.Contains(job3ToString, "ID: " + job3.Id);
+            StringAssert.Contains(job3ToString, "Name: " + job3.Name);
+            StringAssert.Contains(job3ToString, "Employer: " + job3.EmployerName.Value);
+            StringAssert.Contains(job3ToString, "Location: " + job3.EmployerLocation.Value);
+            StringAssert.Contains(job3ToString, "Position Type: " + job3.JobType.Value);
+            StringAssert.Contains(job3ToString, "Core Competency: " + job3.JobCoreCompetency.Value);
+        }
+        [TestMethod]
+        public void TestToStringHandlesEmptyField()
+        {
+            job3.Name = "";
+            StringAssert.Contains(job3.ToString(), "Name: Data not available");
+            job3.EmployerLocation.Value = null;
+            StringAssert.Contains(job3.ToString(), "Location: Data not available");
         }
     }
 }

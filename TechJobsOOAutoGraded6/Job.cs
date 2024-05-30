@@ -57,7 +57,6 @@ namespace TechJobsOOAutoGraded6
                 "Core Competency: " + (JobCoreCompetency == null || string.IsNullOrEmpty(JobCoreCompetency.Value) ? "Data not available" : JobCoreCompetency.Value) + nl;
             return toString;
         }
-
     }
 }
 
